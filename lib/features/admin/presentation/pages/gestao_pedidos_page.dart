@@ -5,6 +5,8 @@ import '../../../../core/widgets/app_logo.dart';
 import '../../../../core/widgets/app_menu_drawer.dart';
 import 'detalhes_pedido_page.dart';
 
+import '../../../../core/widgets/app_bottom_navigation.dart';
+
 enum AdminOrderStatus { novo, emAndamento, concluido }
 
 class AdminOrder {
@@ -162,7 +164,7 @@ class _GestaoPedidosPageState extends State<GestaoPedidosPage> {
           ],
         ),
       ),
-      bottomNavigationBar: const _AdminBottomNavigation(),
+      bottomNavigationBar: const SupplierBottomNavigation(currentIndex: 2),
     );
   }
 
@@ -545,6 +547,15 @@ class _StatusBadge extends StatelessWidget {
   }
 }
 
+/* 
+
+REMOVENDO POIS O TRECHO ABAIXO FOI SUBSTITUIDO POR:
+{
+bottomNavigationBar: const SupplierBottomNavigation(
+  currentIndex: 2,
+),
+}
+
 class _AdminBottomNavigation extends StatelessWidget {
   const _AdminBottomNavigation();
 
@@ -581,4 +592,4 @@ class _AdminBottomNavigation extends StatelessWidget {
       ],
     );
   }
-}
+}*/

@@ -3,35 +3,42 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'core/theme/app_colors.dart';
 import 'core/widgets/app_menu_drawer.dart';
-//import 'features/cacambas/presentation/pages/cacambas_page.dart';
 
-//import 'features/admin/presentation/pages/painel_admin_page.dart';
-
-//import 'features/admin/presentation/pages/cadastrar_cacamba_page.dart';
-
-//import 'features/admin/presentation/pages/minhas_cacambas_page.dart';
-
-//import 'features/admin/presentation/pages/gestao_pedidos_page.dart';
-
-//import 'features/admin/presentation/pages/perfil_loja_page.dart';
-
-//import 'features/admin/presentation/pages/admin_geral_page.dart';
-
-//import 'features/admin/presentation/pages/gestao_usuarios_page.dart';
-
-//import 'features/admin/presentation/pages/gestao_parceiros_page.dart';
-
-//import 'features/admin/presentation/pages/relatorio_financeiro_page.dart';
-
-//import 'features/admin/presentation/pages/configuracoes_admin_page.dart';
-
-//import 'features/parceiros_reciclagem/presentation/pages/detalhes_material_page.dart';
-
-//import 'features/auth/presentation/pages/cadastro_page.dart';
-
-
+import 'core/navigation/app_routes.dart';
 import 'features/auth/presentation/pages/cadastro_page.dart';
 import 'features/auth/presentation/pages/login_page.dart';
+import 'features/cacambas/presentation/pages/cacambas_page.dart';
+import 'features/parceiros_reciclagem/presentation/pages/detalhes_material_page.dart';
+
+import 'features/admin/presentation/pages/painel_admin_page.dart';
+
+/*
+ESTE IMPORT NÃO PÉ NECESSÁRIO
+import 'features/admin/presentation/pages/cadastrar_cacamba_page.dart';
+*/
+import 'features/admin/presentation/pages/minhas_cacambas_page.dart';
+
+import 'features/admin/presentation/pages/gestao_pedidos_page.dart';
+
+import 'features/admin/presentation/pages/perfil_loja_page.dart';
+
+import 'features/admin/presentation/pages/admin_geral_page.dart';
+
+import 'features/admin/presentation/pages/gestao_usuarios_page.dart';
+
+import 'features/admin/presentation/pages/gestao_parceiros_page.dart';
+
+import 'features/admin/presentation/pages/relatorio_financeiro_page.dart';
+
+import 'features/admin/presentation/pages/configuracoes_admin_page.dart';
+
+import 'features/pedidos/presentation/pages/resumo_pedido_page.dart';
+import 'features/parceiros_reciclagem/presentation/pages/coletas_agendadas_page.dart';
+import 'features/parceiros_reciclagem/presentation/pages/parceiros_reciclagem_page.dart';
+
+import 'features/institucional/presentation/pages/saiba_mais_page.dart';
+
+import 'core/widgets/app_bottom_navigation.dart';
 
 void main() {
   runApp(const CollectApp());
@@ -42,7 +49,7 @@ class CollectApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    /*return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: AppColors.green),
@@ -54,6 +61,49 @@ class CollectApp extends StatelessWidget {
           '/login': (_) => const LoginPage(),
           '/cadastro': (_) => const CadastroPage(),
         },
+    );*/
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      initialRoute: AppRoutes.home,
+      routes: {
+        // Cliente
+        AppRoutes.home: (_) => const HomePage(),
+        AppRoutes.services: (_) => const CacambasPage(),
+        AppRoutes.models: (_) => const DetalhesMaterialPage(),
+        AppRoutes.customerOrders: (_) => const ResumoPedidoPage(),
+        AppRoutes.customerProfile: (_) => const LoginPage(),
+
+        // Autenticação
+        AppRoutes.login: (_) => const LoginPage(),
+        AppRoutes.register: (_) => const CadastroPage(),
+        AppRoutes.about: (_) => const SaibaMaisPage(),
+
+        // Fornecedor
+        AppRoutes.supplierHome: (_) => const PainelAdminPage(),
+        AppRoutes.supplierDumpsters: (_) => const MinhasCacambasPage(),
+        AppRoutes.supplierOrders: (_) => const GestaoPedidosPage(),
+        AppRoutes.supplierProfile: (_) => const PerfilLojaPage(),
+
+        // Administrador geral
+        AppRoutes.adminHome: (_) => const AdminGeralPage(),
+        AppRoutes.adminUsers: (_) => const GestaoUsuariosPage(),
+        AppRoutes.adminPartners: (_) => const GestaoParceirosPage(),
+        AppRoutes.adminFinance: (_) => const RelatorioFinanceiroPage(),
+        AppRoutes.adminSettings: (_) => const ConfiguracoesAdminPage(),
+
+        // Reciclagem
+        AppRoutes.recyclingMaterials: (_) => const DetalhesMaterialPage(),
+        AppRoutes.recyclingPartners: (_) => const ParceirosReciclagemPage(),
+        AppRoutes.recyclingCollections: (_) => const ColetasAgendadasPage(),
+
+        // Temporário, até criarmos o perfil de reciclagem.
+        AppRoutes.recyclingProfile: (_) => const LoginPage(),
+      },
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: AppColors.green),
+        scaffoldBackgroundColor: Colors.white,
+        textTheme: GoogleFonts.poppinsTextTheme(),
+      ),
     );
   }
 }
@@ -81,7 +131,7 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: const AppBottomNavigation(),
+      bottomNavigationBar: const CustomerBottomNavigation(currentIndex: 0),
     );
   }
 }
@@ -564,6 +614,13 @@ class SectionTitle extends StatelessWidget {
     );
   }
 }
+/*
+REMOVENDO POIS O TRECHO ABAIXO FOI SUBSTITUIDO POR:
+{
+bottomNavigationBar: const SupplierBottomNavigation(
+  currentIndex: 0,
+),
+}
 
 class AppBottomNavigation extends StatelessWidget {
   const AppBottomNavigation({super.key});
@@ -600,3 +657,4 @@ class AppBottomNavigation extends StatelessWidget {
     );
   }
 }
+*/

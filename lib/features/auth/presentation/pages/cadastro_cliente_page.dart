@@ -4,6 +4,9 @@ import 'package:flutter/services.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/widgets/app_logo.dart';
 
+//botoes de navegação do rodapé
+//import '../../../../core/widgets/app_bottom_navigation.dart';
+
 class CadastroClientePage extends StatefulWidget {
   final String email;
   final String password;
@@ -90,10 +93,7 @@ class _CadastroClientePageState extends State<CadastroClientePage> {
                       const SizedBox(height: 4),
                       const Text(
                         'Preencha seus dados pessoais',
-                        style: TextStyle(
-                          color: Colors.black54,
-                          fontSize: 16,
-                        ),
+                        style: TextStyle(color: Colors.black54, fontSize: 16),
                       ),
                       const SizedBox(height: 26),
 
@@ -235,8 +235,9 @@ class _CadastroClientePageState extends State<CadastroClientePage> {
                           style: ElevatedButton.styleFrom(
                             elevation: 0,
                             backgroundColor: const Color(0xFF2F8334),
-                            disabledBackgroundColor:
-                                AppColors.green.withValues(alpha: 0.55),
+                            disabledBackgroundColor: AppColors.green.withValues(
+                              alpha: 0.55,
+                            ),
                             foregroundColor: Colors.white,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(11),
@@ -268,7 +269,7 @@ class _CadastroClientePageState extends State<CadastroClientePage> {
           ],
         ),
       ),
-      bottomNavigationBar: const _AuthBottomNavigation(),
+      //bottomNavigationBar: const _AuthBottomNavigation(),
     );
   }
 
@@ -291,10 +292,7 @@ class _CadastroClientePageState extends State<CadastroClientePage> {
         children: [
           Text(
             label,
-            style: const TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w700,
-            ),
+            style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w700),
           ),
           const SizedBox(height: 8),
           TextFormField(
@@ -384,9 +382,7 @@ class _CadastroClientePageState extends State<CadastroClientePage> {
       return 'Informe seu e-mail';
     }
 
-    final valid = RegExp(
-      r'^[^@\s]+@[^@\s]+\.[^@\s]+$',
-    ).hasMatch(email);
+    final valid = RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$').hasMatch(email);
 
     if (!valid) {
       return 'Informe um e-mail válido';
@@ -521,10 +517,7 @@ class _CadastroClientePageState extends State<CadastroClientePage> {
 
     if (!mounted) return;
 
-    Navigator.of(context).pushNamedAndRemoveUntil(
-      '/login',
-      (route) => false,
-    );
+    Navigator.of(context).pushNamedAndRemoveUntil('/login', (route) => false);
   }
 }
 
@@ -538,14 +531,15 @@ class _PageHeader extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(18, 18, 18, 24),
       decoration: const BoxDecoration(
         color: Colors.white,
-        border: Border(
-          bottom: BorderSide(color: AppColors.border),
-        ),
+        border: Border(bottom: BorderSide(color: AppColors.border)),
       ),
       child: const AppLogo(),
     );
   }
 }
+
+/*
+REMOVENDO BOTOES DO RODAPE, POIS NAO SAO MAIS NECESSARIOS
 
 class _AuthBottomNavigation extends StatelessWidget {
   const _AuthBottomNavigation();
@@ -582,3 +576,4 @@ class _AuthBottomNavigation extends StatelessWidget {
     );
   }
 }
+*/

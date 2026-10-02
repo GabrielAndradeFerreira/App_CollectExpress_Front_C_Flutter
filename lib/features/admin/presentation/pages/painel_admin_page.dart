@@ -4,6 +4,8 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/widgets/app_logo.dart';
 import '../../../../core/widgets/app_menu_drawer.dart';
 
+import '../../../../core/widgets/app_bottom_navigation.dart';
+
 class PainelAdminPage extends StatelessWidget {
   const PainelAdminPage({super.key});
 
@@ -34,7 +36,7 @@ class PainelAdminPage extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: const _AdminBottomNavigation(),
+      bottomNavigationBar: const SupplierBottomNavigation(currentIndex: 0),
     );
   }
 }
@@ -430,6 +432,13 @@ class _OrderCard extends StatelessWidget {
     );
   }
 }
+/*
+REMOVENDO POIS O TRECHO ABAIXO FOI SUBSTITUIDO POR:
+{
+bottomNavigationBar: const SupplierBottomNavigation(
+  currentIndex: 0,
+),
+}
 
 class _AdminBottomNavigation extends StatelessWidget {
   const _AdminBottomNavigation();
@@ -463,3 +472,4 @@ class _AdminBottomNavigation extends StatelessWidget {
     );
   }
 }
+*/

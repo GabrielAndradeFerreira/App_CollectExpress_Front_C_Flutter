@@ -4,6 +4,9 @@ import 'package:flutter/services.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/widgets/app_logo.dart';
 
+//botoes de navegação do rodapé
+//import '../../../../core/widgets/app_bottom_navigation.dart';
+
 class CadastroFornecedorPage extends StatefulWidget {
   final String email;
   final String password;
@@ -15,8 +18,7 @@ class CadastroFornecedorPage extends StatefulWidget {
   });
 
   @override
-  State<CadastroFornecedorPage> createState() =>
-      _CadastroFornecedorPageState();
+  State<CadastroFornecedorPage> createState() => _CadastroFornecedorPageState();
 }
 
 class _CadastroFornecedorPageState extends State<CadastroFornecedorPage> {
@@ -99,10 +101,7 @@ class _CadastroFornecedorPageState extends State<CadastroFornecedorPage> {
                       const SizedBox(height: 4),
                       const Text(
                         'Preencha os dados da empresa',
-                        style: TextStyle(
-                          color: Colors.black54,
-                          fontSize: 16,
-                        ),
+                        style: TextStyle(color: Colors.black54, fontSize: 16),
                       ),
                       const SizedBox(height: 28),
                       _buildField(
@@ -174,8 +173,7 @@ class _CadastroFornecedorPageState extends State<CadastroFornecedorPage> {
                         suffixIcon: IconButton(
                           onPressed: () {
                             setState(() {
-                              obscureConfirmPassword =
-                                  !obscureConfirmPassword;
+                              obscureConfirmPassword = !obscureConfirmPassword;
                             });
                           },
                           icon: Icon(
@@ -273,8 +271,9 @@ class _CadastroFornecedorPageState extends State<CadastroFornecedorPage> {
                           style: ElevatedButton.styleFrom(
                             elevation: 0,
                             backgroundColor: const Color(0xFF2F8334),
-                            disabledBackgroundColor:
-                                AppColors.green.withValues(alpha: 0.55),
+                            disabledBackgroundColor: AppColors.green.withValues(
+                              alpha: 0.55,
+                            ),
                             foregroundColor: Colors.white,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(11),
@@ -306,7 +305,7 @@ class _CadastroFornecedorPageState extends State<CadastroFornecedorPage> {
           ],
         ),
       ),
-      bottomNavigationBar: const _AuthBottomNavigation(),
+      //bottomNavigationBar: const _AuthBottomNavigation(),
     );
   }
 
@@ -353,30 +352,21 @@ class _CadastroFornecedorPageState extends State<CadastroFornecedorPage> {
     );
   }
 
-  InputDecoration _inputDecoration({
-    String? hintText,
-    Widget? suffixIcon,
-  }) {
+  InputDecoration _inputDecoration({String? hintText, Widget? suffixIcon}) {
     return InputDecoration(
       hintText: hintText,
       hintStyle: const TextStyle(color: Colors.black38),
       suffixIcon: suffixIcon,
       filled: true,
       fillColor: Colors.white,
-      contentPadding: const EdgeInsets.symmetric(
-        horizontal: 16,
-        vertical: 17,
-      ),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 17),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(11),
         borderSide: const BorderSide(color: AppColors.border),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(11),
-        borderSide: const BorderSide(
-          color: AppColors.green,
-          width: 1.5,
-        ),
+        borderSide: const BorderSide(color: AppColors.green, width: 1.5),
       ),
       errorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(11),
@@ -446,9 +436,7 @@ class _CadastroFornecedorPageState extends State<CadastroFornecedorPage> {
       return 'Informe o e-mail';
     }
 
-    final isValid = RegExp(
-      r'^[^@\s]+@[^@\s]+\.[^@\s]+$',
-    ).hasMatch(email);
+    final isValid = RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$').hasMatch(email);
 
     return isValid ? null : 'Informe um e-mail válido';
   }
@@ -565,10 +553,7 @@ class _CadastroFornecedorPageState extends State<CadastroFornecedorPage> {
 
     if (!mounted) return;
 
-    Navigator.of(context).pushNamedAndRemoveUntil(
-      '/login',
-      (route) => false,
-    );
+    Navigator.of(context).pushNamedAndRemoveUntil('/login', (route) => false);
   }
 }
 
@@ -582,9 +567,7 @@ class _PageHeader extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(18, 18, 18, 24),
       decoration: const BoxDecoration(
         color: Colors.white,
-        border: Border(
-          bottom: BorderSide(color: AppColors.border),
-        ),
+        border: Border(bottom: BorderSide(color: AppColors.border)),
       ),
       child: const AppLogo(),
     );
@@ -600,13 +583,13 @@ class _FieldLabel extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: const TextStyle(
-        fontSize: 13,
-        fontWeight: FontWeight.w700,
-      ),
+      style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w700),
     );
   }
 }
+
+/*
+REMOVENDO BOTOES DO RODAPE, POIS NAO SAO MAIS NECESSARIOS
 
 class _AuthBottomNavigation extends StatelessWidget {
   const _AuthBottomNavigation();
@@ -643,3 +626,4 @@ class _AuthBottomNavigation extends StatelessWidget {
     );
   }
 }
+*/

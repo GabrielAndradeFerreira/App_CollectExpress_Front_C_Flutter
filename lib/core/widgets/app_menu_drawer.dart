@@ -1,18 +1,35 @@
 import 'package:flutter/material.dart';
 
+import '../navigation/app_routes.dart';
 import '../theme/app_colors.dart';
 import 'app_logo.dart';
 
 class AppMenuDrawer extends StatelessWidget {
   const AppMenuDrawer({super.key});
 
-  void _close(BuildContext context) {
+  void _closeDrawer(BuildContext context) {
     Navigator.of(context).pop();
+  }
+
+  void _navigate(BuildContext context, String routeName) {
+    final currentRoute = ModalRoute.of(context)?.settings.name;
+    final navigator = Navigator.of(context);
+
+    // Fecha o drawer.
+    navigator.pop();
+
+    // Não navega novamente se já estiver na rota selecionada.
+    if (currentRoute == routeName) {
+      return;
+    }
+
+    navigator.pushNamedAndRemoveUntil(routeName, (route) => false);
   }
 
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.sizeOf(context).width;
+    final currentRoute = ModalRoute.of(context)?.settings.name;
 
     return Drawer(
       width: screenWidth * 0.85,
@@ -27,31 +44,31 @@ class AppMenuDrawer extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(24, 20, 18, 12),
               child: Row(
                 children: [
-                  const Expanded(child: AppLogo()),
+                  Expanded(
+                    child: AppLogo(
+                      onTap: () => _navigate(context, AppRoutes.home),
+                    ),
+                  ),
                   IconButton(
-                    onPressed: () => _close(context),
+                    tooltip: 'Fechar menu',
+                    onPressed: () => _closeDrawer(context),
                     style: IconButton.styleFrom(
                       backgroundColor: Colors.black54,
                       foregroundColor: Colors.white,
+                      hoverColor: Colors.black87,
                     ),
                     icon: const Icon(Icons.close, size: 17),
                   ),
                 ],
               ),
             ),
-
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 22),
               child: _AccountCard(
-                onTap: () {
-                  _close(context);
-                  // Futuramente: abrir tela de login.
-                },
+                onTap: () => _navigate(context, AppRoutes.login),
               ),
             ),
-
             const SizedBox(height: 20),
-
             Expanded(
               child: SingleChildScrollView(
                 padding: const EdgeInsets.symmetric(horizontal: 22),
@@ -60,39 +77,35 @@ class AppMenuDrawer extends StatelessWidget {
                     AppDrawerItem(
                       icon: Icons.home_outlined,
                       title: 'INÍCIO',
-                      selected: true,
-                      onTap: () => _close(context),
+                      selected: currentRoute == AppRoutes.home,
+                      onTap: () => _navigate(context, AppRoutes.home),
                     ),
                     AppDrawerItem(
                       icon: Icons.local_shipping_outlined,
                       title: 'SERVIÇOS',
-                      onTap: () {
-                        _close(context);
-                        // Futuramente: navegar para Serviços.
-                      },
+                      selected: currentRoute == AppRoutes.services,
+                      onTap: () => _navigate(context, AppRoutes.services),
                     ),
                     AppDrawerItem(
                       icon: Icons.grid_view_outlined,
                       title: 'MODELOS',
-                      onTap: () {
-                        _close(context);
-                        // Futuramente: navegar para Modelos.
-                      },
+                      selected: currentRoute == AppRoutes.models,
+                      onTap: () => _navigate(context, AppRoutes.models),
                     ),
                     AppDrawerItem(
-                      icon: Icons.work_outline,
+                      icon: Icons.login_outlined,
                       title: 'LOGIN',
-                      onTap: () {
-                        _close(context);
-                        // Futuramente: navegar para Login.
-                      },
+                      selected: currentRoute == AppRoutes.login,
+                      onTap: () => _navigate(context, AppRoutes.login),
                     ),
                   ],
                 ),
               ),
             ),
-
-            const AppDrawerFooter(),
+            AppDrawerFooter(
+              onRegister: () => _navigate(context, AppRoutes.register),
+              onAbout: () => _navigate(context, AppRoutes.about),
+            ),
           ],
         ),
       ),
@@ -110,9 +123,11 @@ class _AccountCard extends StatelessWidget {
     return Material(
       color: const Color(0xFFD7D7D7),
       borderRadius: BorderRadius.circular(12),
+      clipBehavior: Clip.antiAlias,
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(12),
+        hoverColor: Colors.black.withValues(alpha: 0.06),
+        splashColor: AppColors.green.withValues(alpha: 0.15),
         child: Padding(
           padding: const EdgeInsets.all(12),
           child: Row(
@@ -152,6 +167,7 @@ class _AccountCard extends StatelessWidget {
                   ],
                 ),
               ),
+              const Icon(Icons.chevron_right, color: Colors.black54),
             ],
           ),
         ),
@@ -185,9 +201,11 @@ class AppDrawerItem extends StatelessWidget {
             ? AppColors.green.withValues(alpha: 0.13)
             : Colors.transparent,
         borderRadius: BorderRadius.circular(10),
+        clipBehavior: Clip.antiAlias,
         child: InkWell(
           onTap: onTap,
-          borderRadius: BorderRadius.circular(10),
+          hoverColor: AppColors.green.withValues(alpha: 0.09),
+          splashColor: AppColors.green.withValues(alpha: 0.18),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 15),
             child: Row(
@@ -215,7 +233,14 @@ class AppDrawerItem extends StatelessWidget {
 }
 
 class AppDrawerFooter extends StatelessWidget {
-  const AppDrawerFooter({super.key});
+  final VoidCallback onRegister;
+  final VoidCallback onAbout;
+
+  const AppDrawerFooter({
+    super.key,
+    required this.onRegister,
+    required this.onAbout,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -225,19 +250,16 @@ class AppDrawerFooter extends StatelessWidget {
         children: [
           const Divider(color: Colors.black38),
           const SizedBox(height: 18),
-
           SizedBox(
             width: double.infinity,
             height: 54,
             child: ElevatedButton.icon(
-              onPressed: () {
-                Navigator.of(context).pop();
-                // Futuramente: navegar para Cadastro.
-              },
+              onPressed: onRegister,
               style: ElevatedButton.styleFrom(
                 elevation: 0,
                 backgroundColor: AppColors.yellow,
-                foregroundColor: Colors.white,
+                foregroundColor: Colors.black,
+                overlayColor: Colors.black.withValues(alpha: 0.08),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(9),
                 ),
@@ -249,19 +271,15 @@ class AppDrawerFooter extends StatelessWidget {
               ),
             ),
           ),
-
           const SizedBox(height: 10),
-
           SizedBox(
             width: double.infinity,
             height: 54,
             child: OutlinedButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-                // Futuramente: navegar para Saiba Mais.
-              },
+              onPressed: onAbout,
               style: OutlinedButton.styleFrom(
                 foregroundColor: Colors.black,
+                overlayColor: AppColors.green.withValues(alpha: 0.09),
                 side: const BorderSide(color: Colors.black, width: 1.3),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(9),
@@ -273,9 +291,7 @@ class AppDrawerFooter extends StatelessWidget {
               ),
             ),
           ),
-
           const SizedBox(height: 22),
-
           Container(
             width: double.infinity,
             padding: const EdgeInsets.all(11),
@@ -309,9 +325,7 @@ class AppDrawerFooter extends StatelessWidget {
               ],
             ),
           ),
-
           const SizedBox(height: 20),
-
           const Text(
             '☎  Suporte WhatsApp: (11) 99999-9999',
             textAlign: TextAlign.center,

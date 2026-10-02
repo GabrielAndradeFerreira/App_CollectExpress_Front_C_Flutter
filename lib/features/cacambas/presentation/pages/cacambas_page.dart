@@ -6,6 +6,9 @@ import '../../../../core/widgets/app_menu_drawer.dart';
 
 import 'cacamba_details_page.dart';
 
+//botoes de navegação do rodapé
+import '../../../../core/widgets/app_bottom_navigation.dart';
+
 class CacambasPage extends StatefulWidget {
   const CacambasPage({super.key});
 
@@ -170,7 +173,7 @@ class _CacambasPageState extends State<CacambasPage> {
           ],
         ),
       ),
-      bottomNavigationBar: const CacambasBottomNavigation(),
+      bottomNavigationBar: const CustomerBottomNavigation(currentIndex: 1),
     );
   }
 }
@@ -385,6 +388,14 @@ class SustainabilityFooter extends StatelessWidget {
   }
 }
 
+/*
+REMOVENDO POIS O TRECHO ABAIXO FOI SUBSTITUIDO POR:
+{
+bottomNavigationBar: const SupplierBottomNavigation(
+  currentIndex: 1,
+),
+}
+
 class CacambasBottomNavigation extends StatelessWidget {
   const CacambasBottomNavigation({super.key});
 
@@ -419,3 +430,4 @@ class CacambasBottomNavigation extends StatelessWidget {
     );
   }
 }
+*/
