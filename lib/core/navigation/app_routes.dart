@@ -5,6 +5,7 @@ abstract final class AppRoutes {
   static const models = '/modelos';
   static const customerOrders = '/cliente/pedidos';
   static const customerProfile = '/cliente/perfil';
+  static const trackOrder = '/cliente/acompanhar-pedido';
 
   // Autenticação
   static const login = '/login';

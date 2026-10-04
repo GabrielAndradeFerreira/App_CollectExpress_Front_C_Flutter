@@ -7,6 +7,8 @@ import '../../../../core/widgets/app_menu_drawer.dart';
 //botoes de navegação do rodapé
 import '../../../../core/widgets/app_bottom_navigation.dart';
 
+import 'acompanhar_pedido_page.dart';
+
 class PedidoConfirmadoPage extends StatelessWidget {
   final int selectedDay;
   final String selectedPeriod;
@@ -156,10 +158,13 @@ class PedidoConfirmadoPage extends StatelessWidget {
   }
 
   void _trackOrder(BuildContext context) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('A tela de acompanhamento será criada em seguida.'),
-        backgroundColor: AppColors.green,
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (_) => AcompanharPedidoPage(
+          orderNumber: '#COL-2024-1587',
+          deliveryDay: selectedDay,
+          deliveryPeriod: selectedPeriod,
+        ),
       ),
     );
   }
