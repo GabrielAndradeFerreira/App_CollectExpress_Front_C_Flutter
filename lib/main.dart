@@ -40,6 +40,9 @@ import 'features/perfil/presentation/pages/perfil_cliente_page.dart';
 
 import 'features/institucional/presentation/pages/saiba_mais_page.dart';
 
+import 'features/admin_auth/presentation/pages/admin_login_page.dart';
+import 'features/admin_auth/presentation/pages/admin_register_page.dart';
+
 import 'core/widgets/app_bottom_navigation.dart';
 
 void main() {
@@ -79,6 +82,8 @@ class CollectApp extends StatelessWidget {
         AppRoutes.login: (_) => const LoginPage(),
         AppRoutes.register: (_) => const CadastroPage(),
         AppRoutes.about: (_) => const SaibaMaisPage(),
+        AppRoutes.adminLogin: (_) => const AdminLoginPage(),
+        AppRoutes.adminRegister: (_) => const AdminRegisterPage(),
 
         // Fornecedor
         AppRoutes.supplierHome: (_) => const PainelAdminPage(),

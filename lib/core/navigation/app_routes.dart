@@ -11,6 +11,8 @@ abstract final class AppRoutes {
   static const login = '/login';
   static const register = '/cadastro';
   static const about = '/saiba-mais';
+  static const adminLogin = '/admin/login';
+  static const adminRegister = '/admin/cadastro';
 
   // Fornecedor de caçambas
   static const supplierHome = '/fornecedor/inicio';

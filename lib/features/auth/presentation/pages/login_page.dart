@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/widgets/app_logo.dart';
 
+import '../../../../core/navigation/app_routes.dart';
+
 //botoes de navegação do rodapé
 //import '../../../../core/widgets/app_bottom_navigation.dart';
 
@@ -152,6 +154,49 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                         ],
+                      ),
+                      const SizedBox(height: 22),
+                      const Row(
+                        children: [
+                          Expanded(child: Divider(color: AppColors.border)),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 12),
+                            child: Text(
+                              'ou',
+                              style: TextStyle(
+                                color: Colors.black45,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ),
+                          Expanded(child: Divider(color: AppColors.border)),
+                        ],
+                      ),
+                      const SizedBox(height: 18),
+                      SizedBox(
+                        width: double.infinity,
+                        height: 52,
+                        child: OutlinedButton.icon(
+                          onPressed: () {
+                            Navigator.of(context)
+                                .pushNamed(AppRoutes.adminLogin);
+                          },
+                          style: OutlinedButton.styleFrom(
+                            foregroundColor: AppColors.green,
+                            side: const BorderSide(color: AppColors.green),
+                            overlayColor: AppColors.green.withValues(
+                              alpha: 0.08,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(11),
+                            ),
+                          ),
+                          icon: const Icon(Icons.admin_panel_settings_outlined),
+                          label: const Text(
+                            'ACESSO ADMINISTRATIVO',
+                            style: TextStyle(fontWeight: FontWeight.w800),
+                          ),
+                        ),
                       ),
                     ],
                   ),
